@@ -1,4 +1,4 @@
-# Using MongoDB with Django
+# Using MongoDB with Django with CRUD (Create, Read, Update, Delete)
 
 Requirements:
 
@@ -14,16 +14,20 @@ https://www.djangoproject.com/download/
 ![Django Release Roadmap](https://github.com/jcamier/dfw_django_mongo_talk/blob/master/django_release_roadmap.png)    
 ![Django Release Dates](https://github.com/jcamier/dfw_django_mongo_talk/blob/master/django_release_dates.png)
 
+Quick NoSQL terminology:
+    A collection is similar to a table in SQL databases
+    A document is a record
 
 # Instructions:
 
-## Step 1 - Install dependencies
+## Step 1 Download and Install Dependencies
+    Download and install MongoDB
+
     pip install -r requirements.txt
     
 ## Step 2 - Create user in MongoDB
     # Start mongo shell
     
-    ```
     mongo
     use admin;
     
@@ -36,69 +40,72 @@ https://www.djangoproject.com/download/
                     { role: "dbAdminAnyDatabase",   db: "admin" }
                  ]
     }); 
-    ```
 
 ## Step 3 - Create first app
     django-admin startproject mysite
+    
     cd mysite/
+    
     python manage.py runserver
+    
     ctrl + c
+    
     python manage.py startapp polls
     
-## Step 4 - create first view
-
-1. modify mysite/polls/views.py:
-
+    
+## Step 4 Django
+1. update mysite/mysite/settings.py file
     ```
+    # Add POLLS_DIR
+    POLLS_DIR = os.path.join(BASE_DIR, "polls", "templates", "polls")
     
-    from django.http import HttpResponse
+    # Change your SECRET_KEY ...
     
-    def index(request):
-        return HttpResponse("Hello, world. You're at the polls index.")
+    # Change your ALLOWED_HOSTS to your external IP address or use wildcard
+    ALLOWED_HOSTS = ['*']
+   
+    # Modify templates section to include above POLLS_DIR   
+    TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [POLLS_DIR],
     
-    ```
-
-2. nano mysite/polls/urls.py file (create this file):
-
-    ```
-    
-    from django.urls import path
-    
-    from . import views
-    
-    urlpatterns = [
-        path('', views.index, name='index'),
-    ]
+    # We will not change the database settings since we will just change the
+    functionality in how it works
+   
     ```
 
-3. modify mysite/urls.py file (parent directory):
+
+2. modify mysite/polls/views.py:
+    
+    - copy and paste code from github repo
+
+3. create mysite/polls/urls.py file:
+
+    - copy and paste code from github repo
+
+4. modify mysite/mysite/urls.py file (main directory):
 
     ```
     
     from django.contrib import admin
     from django.urls import include, path
-    
+
     urlpatterns = [
-        path('polls/', include('polls.urls')),
-        path('admin/', admin.site.urls),
+    path('polls/', include('polls.urls')),
+    path('admin/', admin.site.urls),
     ]
     
     ```
 
-4. python manage.py runserver
-
-5. http://127.0.0.1:8000/polls/
-
-    ctrl + c
-
-6. nano mysite/polls/mongo_settings.py
-
+5. create mysite/polls/mongo_settings.py
+    
     ```
    # Logging
     LOG_FORMAT = '%(asctime)s::%(name)s::%(funcName)s:%(lineno)d::%(levelname)s::%(message)s'
     LOG_LEVEL = "INFO"
 
-    # MongoDB (Make sure you created the credentials above)
+    # MongoDB (Make sure you created the credentials above!!)
     MONGO_HOST = "localhost"
     MONGO_PORT = "27017"
     MONGO_USER = "django"
@@ -106,30 +113,51 @@ https://www.djangoproject.com/download/
     DATABASE = "django"
     
     ```
-   
-7. Update settings.py file
-    ```
-    ALLOWED_HOSTS = ['*']
-    POLLS_DIR = os.path.join(BASE_DIR, "polls", "templates", "polls")
-    TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [POLLS_DIR],
-    etc...
-    ```
-  
-   
-7. copy mongo_session.py file from repo and save it in mysite/polls/mongo_session.py
-
-8. create template directory in poll project
-    - mysite/polls/templates
+      
+6. create mysite/polls/mongo_session.py file 
     
-9. copy the templates from repo
-    - mysite/polls/templates/simple_form.html
+    - copy and paste from repo
 
-9. Add import statement to mysite/polls/views.py in order to access Mongo from Django
-    ```
-    from .mongo_session import DjangoMongoClient
-    ```
+7. create templates directory and polls subdirectory
+
+    - mysite/polls/templates/polls
+    
+8. copy and paste templates from repo
+    - mysite/polls/templates/polls/index.html
+    - mysite/polls/templates/polls/query_form.html
+    - mysite/polls/templates/polls/simple_form.html
+    - mysite/polls/templates/polls/update_form.html
+
+9. create mysite/polls/urls.py file
+
+    - copy and paste from repo
+    
+10. cd into directory mysite/
+
+    - python manage.py runserver
+
+11. Go to developement server url:
+
+    http://127.0.0.1:8000/polls/
+    
+12. (C)reate a document (record)
+
+    http://127.0.0.1:8000/polls/form
+    
+13. (R)ead - Query documents (records)
+
+    http://127.0.0.1:8000/polls/query-form
+    
+13. (U)pdate documents (records)
+
+    http://127.0.0.1:8000/polls/update-form
+    
+14. (D)elete documents (records)
+
+    http://127.0.0.1:8000/polls/update-form
+    
+    
+
+
 
     

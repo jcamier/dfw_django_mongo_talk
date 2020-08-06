@@ -21,12 +21,12 @@ POLLS_DIR = os.path.join(BASE_DIR, "polls", "templates", "polls")
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'x-lzhv!x7qje506^hrmpusqvp1@s@13v%!m7mpw_o(3fr#h!$$'
+SECRET_KEY = 'makeSureYouDontUseThisKeyInProduction'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

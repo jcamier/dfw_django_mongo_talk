@@ -1,3 +1,5 @@
 venv/
 db.sqlite3
 .idea*
+mysite/mysite/__pycache__*
+mysite/polls/__pycache__*

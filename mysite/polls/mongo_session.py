@@ -2,7 +2,7 @@ import pymongo
 import logging
 import urllib
 import pprint
-from typing import Dict
+from typing import Dict, Any
 
 
 import polls.mongo_settings as settings
@@ -53,7 +53,7 @@ class DjangoMongoClient(object):
 
     def insert_document_record(self, doc_dict: Dict, collection: str) -> None:
         """
-
+        Method to insert records into MongoDB
         :param doc_dict: dict of key, values to insert into database
         :param collection str:
         :return:
@@ -69,9 +69,9 @@ class DjangoMongoClient(object):
 
     def update_item(self, search_dict: Dict, doc_dict: Dict, collection: str) -> None:
         """
-
+        Method to update existing records into MongoDB
         :param search_dict: dict of key, values to search the database
-        :param doc_dict: dict of key, values to update in database
+        :param doc_dict: dict of key, values (attributes) to update in database
         :param collection str:
         :return:
         """
@@ -89,18 +89,19 @@ class DjangoMongoClient(object):
         except Exception as missing_item:
             raise ValueError('incorrect search dict')
 
-    def query_document(self, key: str, value: str, collection: str):
+    def query_document(self, key: str, value: str, collection: str) -> Any:
 
         try:
             col = self.db[collection]
             query = {key: value}
             doc = col.find_one(query)
+
             return doc
 
         except Exception as error:
             raise ValueError('incorrect key, value')
 
-    def query_documents(self, collection: str):
+    def query_documents(self, collection: str) -> Any:
 
         try:
             col = self.db[collection]
@@ -112,10 +113,10 @@ class DjangoMongoClient(object):
         except Exception as e:
             raise ValueError('no query data')
 
-    def delete_document(self, search_dict: Dict, collection: str):
+    def delete_document(self, search_dict: Dict, collection: str) -> None:
 
         """
-
+        Method to delete records into MongoDB
         :param search_dict: dict of key, values to search the database
         :param collection str:
         :return:
@@ -124,9 +125,7 @@ class DjangoMongoClient(object):
         col = self.db[collection]
 
         try:
-            print(search_dict)
             doc = col.find_one(search_dict)
-            print(doc)
 
             if doc:
                 col.delete_one(search_dict)
