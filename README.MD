@@ -9,6 +9,9 @@ Requirements:
     https://docs.mongodb.com/manual/installation/
     * pymongo==3.10.1
     
+Django 2.2 is a LTS, hence why I chose it.
+https://www.djangoproject.com/download/
+![Django Release Roadmap](https://github.com/jcamier/dfw_django_mongo_talk/blob/master/django_release_roadmap.png)    
 ![Django Release Dates](https://github.com/jcamier/dfw_django_mongo_talk/blob/master/django_release_dates.png)
 
 
