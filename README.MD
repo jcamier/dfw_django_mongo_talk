@@ -1,4 +1,4 @@
-# Using MongoDB with Django with CRUD (Create, Read, Update, Delete)
+# Using MongoDB with Django - CRUD (Create, Read, Update, Delete)
 
 Requirements:
 
