@@ -8,6 +8,9 @@ Requirements:
     * MongoDB v4.2.8
     https://docs.mongodb.com/manual/installation/
     * pymongo==3.10.1
+    
+![Django Release Dates](https://github.com/jcamier/dfw_django_mongo_talk/blob/master/django_release_dates.png)
+
 
 # Instructions:
 
