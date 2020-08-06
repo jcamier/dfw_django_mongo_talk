@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Name Form</title>
+</head>
+<body>
+
+<h2>Name Forms</h2>
+
+<form method="post" action="" enctype="multipart/form-data">
+  {% csrf_token %}
+  <label for="first_name">First name:</label><br>
+  <input type="text" id="first_name" name="first_name" value=""><br>
+  <label for="last_name">Last name:</label><br>
+  <input type="text" id="last_name" name="last_name" value=""><br><br>
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
+
+

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Mongo</title>
+</head>
+<body>
+
+<h2>Update Mongo</h2>
+
+<form method="post" action="" enctype="multipart/form-data">
+  {% csrf_token %}
+
+
+    {% for id in query_dict %}
+    <input type="checkbox" name="items_checkbox" value="{{ id }}">{{id}}
+    <input type="text" id="text_field_{{id}}" name="text_field_{{id}}">
+    <input type="checkbox" name="del_checkbox" value="{{ id }}">
+    <br>
+
+    {% endfor %}
+    <br><br>
+    <input type="submit" value="Submit">
+
+</form>
+
+
+</body>
+</html>
+
+
